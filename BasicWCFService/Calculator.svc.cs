@@ -1,50 +1,91 @@
-﻿namespace BasicWCFService
+﻿using BasicWCFService;
+using System;
+using System.ServiceModel;
+using System.ServiceModel.Description;
+using System.ServiceModel.Web;
+
+namespace BasicWCFService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Calculator" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Calculator.svc or Calculator.svc.cs at the Solution Explorer and start debugging.
     public class Calculator : ICalculator
     {
-        public int Add(int a ,int b)
+        ResultAcknowledgement acknowledge = new ResultAcknowledgement();
+        public ResultAcknowledgement Add(CalculatorInputs numbers)
         {
-            return a + b;
-        }
-
-        public int Calculate(int selection,int a, int b)
-        {
-            int value = 0;
-            switch (selection)
+            try
             {
-                case 1:
-                    value = Add(a, b);
-                    return value;
-                case 2:
-                    value= Subtract(a,b);
-                    return value;
-                case 3:
-                    value = Multiply(a,b);
-                    return value;
-                case 4:
-                    value = Division(a, b);
-                    return value;
+                int a = Convert.ToInt32(numbers.a);
+                int b = Convert.ToInt32(numbers.b);
+                acknowledge.Result = true;
+                acknowledge.ResultValue = a + b;
+
+                return acknowledge;  
             }
-            return value;
+            catch(Exception ex)
+            {
+                acknowledge.message = ex.Message;
+                acknowledge.Result = false;
+                return acknowledge;
+            }
+
         }
 
-        public int Division(int a ,int b)
+        public ResultAcknowledgement Division(CalculatorInputs numbers)
         {
-            if(a >=b && b!=0)
-            return a / b;
-            return 0;
+            try
+            {
+                int a = Convert.ToInt32(numbers.a);
+                int b = Convert.ToInt32(numbers.b);
+                acknowledge.Result = true;
+                acknowledge.ResultValue = a / b;
+
+                return acknowledge;
+            }
+            catch (Exception ex)
+            {
+                acknowledge.message = ex.Message;
+                acknowledge.Result = false;
+                return acknowledge;
+            }
         }
 
-        public int Multiply(int a, int b)
+        public ResultAcknowledgement Multiply(CalculatorInputs numbers)
         {
-            return a * b;
+            try
+            {
+                int a = Convert.ToInt32(numbers.a);
+                int b = Convert.ToInt32(numbers.b);
+                acknowledge.Result = true;
+                acknowledge.ResultValue = a * b;
+
+                return acknowledge;
+            }
+            catch (Exception ex)
+            {
+                acknowledge.message = ex.Message;
+                acknowledge.Result = false;
+                return acknowledge;
+            }
         }
 
-        public int Subtract(int a, int b)
+        public ResultAcknowledgement Subtract(CalculatorInputs numbers)
         {
-            return a - b;
+            try
+            {
+                int a = Convert.ToInt32(numbers.a);
+                int b = Convert.ToInt32(numbers.b);
+                acknowledge.Result = true;
+                acknowledge.ResultValue = a - b;
+
+                return acknowledge;
+            }
+            catch (Exception ex)
+            {
+                acknowledge.message = ex.Message;
+                acknowledge.Result = false;
+                return acknowledge;
+            }
         }
     }
 }

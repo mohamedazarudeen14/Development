@@ -12,15 +12,15 @@ namespace BasicWCFService
     public interface ICalculator
     {
         [OperationContract]
-        int Calculate(int selection, int a, int b);
+        ResultAcknowledgement Add(CalculatorInputs numbers);
 
-        int Add(int a, int b);
+        [OperationContract]
+        ResultAcknowledgement Subtract(CalculatorInputs numbers);
 
-        int Subtract(int a, int b);
+        [OperationContract]
+        ResultAcknowledgement Multiply(CalculatorInputs numbers);
 
-        int Multiply(int a, int b);
-
-        int Division(int a, int b);
-
+        [OperationContract]
+        ResultAcknowledgement Division(CalculatorInputs numbers);
     }
 }
